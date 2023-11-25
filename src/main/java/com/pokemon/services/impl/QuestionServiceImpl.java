@@ -46,8 +46,7 @@ public class QuestionServiceImpl implements IQuestionService {
 
     @Override
     public void deleteAllById(List<Long> idsList) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteAllById'");
+        questionRepository.deleteAllById(idsList);
     }
 
 }
