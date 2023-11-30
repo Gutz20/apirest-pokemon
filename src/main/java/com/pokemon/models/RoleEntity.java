@@ -1,6 +1,5 @@
 package com.pokemon.models;
 
-
 import com.pokemon.models.enums.ERole;
 
 import jakarta.persistence.Column;

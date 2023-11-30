@@ -34,6 +34,12 @@ public class QuestionServiceImpl implements IQuestionService {
     }
 
     @Override
+    public List<Question> saveAll(List<Question> questions) {
+        System.out.println(questions);
+        return questionRepository.saveAll(questions);
+    }
+
+    @Override
     public Question update(Long id, Question question) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");

@@ -53,6 +53,16 @@ public class QuestionController {
         }
     }
 
+    @PostMapping("/createMany")
+    public ResponseEntity<List<Question>> createMany(@RequestBody List<Question> questions) {
+        try {
+            List<Question> savedQuestions = questionService.saveAll(questions);
+            return new ResponseEntity<>(savedQuestions, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Question> update(@PathVariable(value = "id") Long id, @RequestBody Question dto) {
         try {

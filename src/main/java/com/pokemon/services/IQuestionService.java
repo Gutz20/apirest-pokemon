@@ -11,6 +11,8 @@ public interface IQuestionService {
 
     Question save(Question question);
 
+    List<Question> saveAll(List<Question> questions);
+
     Question update(Long id, Question question);
 
     void deleteById(Long id);
