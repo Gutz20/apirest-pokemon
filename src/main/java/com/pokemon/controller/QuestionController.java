@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import com.pokemon.services.IQuestionService;
 @RestController
 @RequestMapping("api/v1/questions")
 @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+@CrossOrigin("*")
 public class QuestionController {
 
     @Autowired
@@ -30,6 +32,15 @@ public class QuestionController {
     public ResponseEntity<List<Question>> getAll() {
         try {
             return new ResponseEntity<>(questionService.findAll(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/dificult/{id}")
+    public ResponseEntity<List<Question>> getAllByDificult(@PathVariable("id") Long id) {
+        try {
+            return new ResponseEntity<>(questionService.findAllByDificult(id), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

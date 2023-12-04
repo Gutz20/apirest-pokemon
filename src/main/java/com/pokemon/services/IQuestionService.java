@@ -7,6 +7,8 @@ import com.pokemon.models.Question;
 public interface IQuestionService {
     List<Question> findAll();
 
+    List<Question> findAllByDificult(Long dificultId);
+
     Question findById(Long id);
 
     Question save(Question question);

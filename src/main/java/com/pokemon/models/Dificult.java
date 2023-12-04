@@ -1,12 +1,18 @@
 package com.pokemon.models;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -22,9 +28,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "categories")
-public class Category {
-
+@Table(name = "dificults")
+public class Dificult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,6 +37,10 @@ public class Category {
     @NotBlank
     @Column(unique = true)
     private String name;
+
+    @OneToMany(mappedBy = "dificult", cascade = CascadeType.ALL)
+    @JsonIgnore()
+    private Set<Question> questions = new HashSet<>();
 
     @Column(name = "creation_date")
     @Temporal(TemporalType.TIMESTAMP)
@@ -41,5 +50,4 @@ public class Category {
     public void prePersist() {
         this.creationDate = new Date();
     }
-
 }

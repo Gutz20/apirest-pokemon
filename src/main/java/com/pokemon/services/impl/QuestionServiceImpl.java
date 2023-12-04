@@ -24,6 +24,11 @@ public class QuestionServiceImpl implements IQuestionService {
     }
 
     @Override
+    public List<Question> findAllByDificult(Long dificultId) {
+        return questionRepository.findByDificultId(dificultId);
+    }
+
+    @Override
     public Question findById(Long id) {
         return questionRepository.findById(id).orElseThrow();
     }
@@ -35,14 +40,22 @@ public class QuestionServiceImpl implements IQuestionService {
 
     @Override
     public List<Question> saveAll(List<Question> questions) {
-        System.out.println(questions);
         return questionRepository.saveAll(questions);
     }
 
     @Override
     public Question update(Long id, Question question) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+
+        Question questionFound = questionRepository.findById(id).orElseThrow();
+
+        questionFound.setAnswers(question.getAnswers());
+        questionFound.setCode(question.getCode());
+        questionFound.setCorrectAnswer(question.getCorrectAnswer());
+        questionFound.setDificult(question.getDificult());
+        questionFound.setQuestion(question.getQuestion());
+        questionFound.setTrack(question.getTrack());
+
+        return questionFound;
     }
 
     @Override
